@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<!-- SEO -->
+<title>Neon Orbit | Interactive Digital Experience</title>
+
+<meta name="description"
+content="Neon Orbit is an interactive digital experiment featuring immersive animations, visual experiments and a random interactive machine.">
+
+<meta name="keywords"
+content="Neon Orbit, interactive website, digital experiment, interactive experience, entertainment, web experiment">
+
+<meta name="robots"
+content="index, follow">
+
+<meta name="author"
+content="Neon Orbit">
+
+<!-- Mobile / Browser -->
+<meta name="theme-color"
+content="#050507">
+
+<!-- Open Graph -->
+<meta property="og:title"
+content="Neon Orbit | Interactive Digital Experience">
+
+<meta property="og:description"
+content="Enter an experimental digital world filled with animations, visual experiments and random experiences.">
+
+<meta property="og:type"
+content="website">
+
+<!-- Twitter / Social Preview -->
+<meta name="twitter:card"
+content="summary">
+
+<meta name="twitter:title"
+content="Neon Orbit | Interactive Digital Experience">
+
+<meta name="twitter:description"
+content="An experimental interactive digital experience.">
+
+<!-- Favicon -->
+<link rel="icon"
+href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+<circle cx='50' cy='50' r='45' fill='%23050507'/>
+<circle cx='50' cy='50' r='20' fill='%2300f0ff'/>
+<circle cx='50' cy='50' r='35' fill='none' stroke='%238b5cff' stroke-width='3'/>
+</svg>">
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#050507;
+    --text:#f5f5f7;
+    --muted:#85858e;
+    --line:rgba(255,255,255,.1);
+    --cyan:#00f0ff;
+    --purple:#8b5cff;
+    --pink:#ff3cac;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Space Grotesk",sans-serif;
+    overflow-x:hidden;
+    cursor:none;
+}
+
+/* CUSTOM CURSOR */
+
+.cursor{
+    position:fixed;
+    width:18px;
+    height:18px;
+    border:1px solid white;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:9999;
+    transform:translate(-50%,-50%);
+    transition:
+        width .2s,
+        height .2s,
+        background .2s;
+    mix-blend-mode:difference;
+}
+
+.cursor.active{
+    width:60px;
+    height:60px;
+    background:white;
+}
+
+/* NOISE */
+
+.noise{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.035;
+    z-index:100;
+
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+/* NAV */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    padding:26px 5vw;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    z-index:50;
+    mix-blend-mode:screen;
+}
+
+.logo{
+    font-weight:700;
+    letter-spacing:5px;
+    font-size:13px;
+}
+
+.nav-right{
+    display:flex;
+    gap:30px;
+    font-size:11px;
+    letter-spacing:2px;
+    color:#aaa;
+}
+
+.nav-right span{
+    transition:.3s;
+}
+
+.nav-right span:hover{
+    color:white;
+}
+
+/* HERO */
+
+.hero{
+    height:100vh;
+    min-height:700px;
+
+    position:relative;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+}
+
+.grid{
+    position:absolute;
+    inset:-20%;
+
+    background:
+        linear-gradient(
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.035) 1px,
+            transparent 1px
+        );
+
+    background-size:70px 70px;
+
+    transform:
+        perspective(700px)
+        rotateX(65deg)
+        translateY(130px)
+        scale(1.5);
+
+    transform-origin:center;
+    opacity:.5;
+}
+
+.orb{
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            white 0%,
+            var(--cyan) 5%,
+            #005eff 25%,
+            #4511a8 48%,
+            transparent 70%
+        );
+
+    filter:blur(1px);
+
+    box-shadow:
+        0 0 80px #006eff,
+        0 0 180px rgba(0,150,255,.35);
+
+    animation:
+        orb 8s ease-in-out infinite alternate;
+}
+
+@keyframes orb{
+
+    from{
+        transform:
+            translate(-20px,-15px)
+            scale(.92);
+    }
+
+    to{
+        transform:
+            translate(20px,15px)
+            scale(1.05);
+    }
+
+}
+
+.ring{
+    position:absolute;
+
+    width:720px;
+    height:250px;
+
+    border:1px solid rgba(0,240,255,.35);
+
+    border-radius:50%;
+
+    transform:rotate(-18deg);
+
+    box-shadow:
+        0 0 40px rgba(0,240,255,.12),
+        inset 0 0 40px rgba(0,240,255,.08);
+
+    animation:
+        spin 18s linear infinite;
+}
+
+.ring:nth-child(2){
+
+    width:780px;
+    height:300px;
+
+    transform:rotate(45deg);
+
+    animation-duration:24s;
+}
+
+@keyframes spin{
+
+    to{
+        rotate:360deg;
+    }
+
+}
+
+.hero-content{
+
+    position:relative;
+
+    z-index:5;
+
+    text-align:center;
+
+    pointer-events:none;
+}
+
+.kicker{
+
+    font-size:11px;
+
+    letter-spacing:7px;
+
+    color:var(--cyan);
+
+    margin-bottom:30px;
+
+    opacity:.8;
+}
+
+.hero h1{
+
+    font-size:
+        clamp(65px,12vw,170px);
+
+    line-height:.8;
+
+    letter-spacing:-8px;
+
+    font-weight:700;
+
+    background:
+        linear-gradient(
+            100deg,
+            white,
+            #9cf8ff 35%,
+            #8b5cff 65%,
+            #ff3cac
+        );
+
+    -webkit-background-clip:text;
+
+    background-clip:text;
+
+    color:transparent;
+}
+
+.hero-sub{
+
+    margin-top:35px;
+
+    color:#aaa;
+
+    font-size:13px;
+
+    letter-spacing:2px;
+}
+
+.scroll{
+
+    position:absolute;
+
+    bottom:30px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    font-size:9px;
+
+    letter-spacing:4px;
+
+    color:#777;
+}
+
+/* SECTION */
+
+section{
+
+    position:relative;
+
+    padding:160px 7vw;
+}
+
+.section-label{
+
+    color:var(--cyan);
+
+    font-size:10px;
+
+    letter-spacing:4px;
+
+    margin-bottom:20px;
+}
+
+.section-title{
+
+    font-size:
+        clamp(40px,7vw,100px);
+
+    line-height:.95;
+
+    max-width:900px;
+
+    letter-spacing:-4px;
+}
+
+/* CARDS */
+
+.experiments{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+
+    margin-top:100px;
+}
+
+.card{
+
+    height:460px;
+
+    border:1px solid var(--line);
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:30px;
+
+    transition:
+        transform .5s
+        cubic-bezier(.2,.8,.2,1),
+        border-color .4s;
+
+    background:#09090c;
+}
+
+.card:hover{
+
+    transform:
+        translateY(-15px)
+        rotateX(3deg)
+        rotateY(-3deg);
+
+    border-color:
+        rgba(255,255,255,.3);
+}
+
+.card:nth-child(2){
+
+    margin-top:80px;
+}
+
+.card:nth-child(3){
+
+    margin-top:160px;
+}
+
+.card-number{
+
+    font-size:10px;
+
+    color:#666;
+}
+
+.card h3{
+
+    position:absolute;
+
+    bottom:80px;
+    left:30px;
+
+    font-size:30px;
+
+    letter-spacing:-1px;
+}
+
+.card p{
+
+    position:absolute;
+
+    bottom:35px;
+    left:30px;
+
+    color:#777;
+
+    font-size:11px;
+}
+
+/* CARD VISUALS */
+
+.visual{
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:.85;
+}
+
+.visual.one{
+
+    background:
+
+        radial-gradient(
+            circle at 50% 50%,
+            #00eaff 0 2%,
+            transparent 3%
+        ),
+
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0 20px,
+            rgba(0,240,255,.18) 21px 22px
+        );
+
+    animation:
+        pulse 5s infinite alternate;
+}
+
+.visual.two{
+
+    background:
+
+        linear-gradient(
+            130deg,
+            transparent 40%,
+            rgba(139,92,255,.5)
+        ),
+
+        repeating-linear-gradient(
+            90deg,
+            transparent 0 30px,
+            rgba(255,255,255,.06) 31px 32px
+        );
+}
+
+.visual.three{
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            #ff3cac 0,
+            #7b1cff 12%,
+            transparent 40%
+        );
+}
+
+@keyframes pulse{
+
+    from{
+        transform:
+            scale(.8)
+            rotate(0);
+    }
+
+    to{
+        transform:
+            scale(1.2)
+            rotate(25deg);
+    }
+
+}
+
+/* GENERATOR */
+
+.generator{
+
+    min-height:800px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            rgba(91,51,255,.15),
+            transparent 45%
+        );
+}
+
+.generator h2{
+
+    font-size:
+        clamp(45px,8vw,100px);
+
+    letter-spacing:-5px;
+}
+
+.generator p{
+
+    color:#777;
+
+    margin:
+        25px 0 40px;
+}
+
+.generate-btn{
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    background:white;
+
+    color:black;
+
+    padding:20px 40px;
+
+    font-family:inherit;
+
+    font-weight:600;
+
+    letter-spacing:2px;
+
+    cursor:none;
+
+    transition:.3s;
+}
+
+.generate-btn:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:
+        0 0 50px
+        rgba(255,255,255,.3);
+}
+
+.result{
+
+    margin-top:50px;
+
+    min-height:120px;
+
+    max-width:700px;
+
+    font-size:24px;
+
+    line-height:1.3;
+
+    transition:
+        opacity .25s;
+}
+
+/* FOOTER */
+
+footer{
+
+    padding:50px 7vw;
+
+    border-top:
+        1px solid var(--line);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#555;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+    body{
+        cursor:auto;
+    }
+
+    .cursor{
+        display:none;
+    }
+
+    .nav-right{
+        display:none;
+    }
+
+    .orb{
+
+        width:330px;
+        height:330px;
+    }
+
+    .ring{
+
+        width:500px;
+        height:180px;
+    }
+
+    .experiments{
+
+        grid-template-columns:1fr;
+
+        margin-top:60px;
+    }
+
+    .card,
+    .card:nth-child(2),
+    .card:nth-child(3){
+
+        margin-top:0;
+
+        height:400px;
+    }
+
+    section{
+
+        padding:
+            100px 6vw;
+    }
+
+}
+
+/* ACCESSIBILITY */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        scroll-behavior:auto !important;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<div class="cursor"></div>
+
+
+<!-- NAV -->
+
+<nav>
+
+    <div class="logo">
+        NØ / ORBIT
+    </div>
+
+    <div class="nav-right">
+
+        <span>
+            EXPERIMENTS
+        </span>
+
+        <span>
+            RANDOMIZE
+        </span>
+
+        <span>
+            2026
+        </span>
+
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<main>
+
+<div class="hero">
+
+    <div class="grid"></div>
+
+    <div class="orb"></div>
+
+    <div class="ring"></div>
+
+    <div class="ring"></div>
+
+    <div class="hero-content">
+
+        <div class="kicker">
+            DIGITAL EXPERIMENT № 001
+        </div>
+
+        <h1>
+            NEON<br>
+            ORBIT
+        </h1>
+
+        <div class="hero-sub">
+            THERE IS ABSOLUTELY NO REASON
+            FOR THIS WEBSITE TO EXIST.
+        </div>
+
+    </div>
+
+    <div class="scroll">
+        SCROLL TO ENTER
+    </div>
+
+</div>
+
+
+<!-- EXPERIMENTS -->
+
+<section>
+
+    <div class="section-label">
+        01 — RANDOM LAB
+    </div>
+
+    <h2 class="section-title">
+        Things become<br>
+        interesting when<br>
+        nobody knows why.
+    </h2>
+
+    <div class="experiments">
+
+        <article class="card">
+
+            <div class="visual one"></div>
+
+            <div class="card-number">
+                EXP / 001
+            </div>
+
+            <h3>
+                VOID SIGNAL
+            </h3>
+
+            <p>
+                Listen to absolutely nothing.
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="visual two"></div>
+
+            <div class="card-number">
+                EXP / 002
+            </div>
+
+            <h3>
+                UNKNOWN GRID
+            </h3>
+
+            <p>
+                A grid that doesn't lead anywhere.
+            </p>
+
+        </article>
+
+
+        <article class="card">
+
+            <div class="visual three"></div>
+
+            <div class="card-number">
+                EXP / 003
+            </div>
+
+            <h3>
+                RED SHIFT
+            </h3>
+
+            <p>
+                Something is moving.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- RANDOM GENERATOR -->
+
+<section class="generator">
+
+    <div class="section-label">
+        02 — RANDOM MACHINE
+    </div>
+
+    <h2>
+        PRESS THE<br>
+        BUTTON.
+    </h2>
+
+    <p>
+        It will generate something
+        completely unnecessary.
+    </p>
+
+    <button
+        class="generate-btn"
+        id="generate"
+        type="button">
+
+        GENERATE
+
+    </button>
+
+    <div
+        class="result"
+        id="result"
+        aria-live="polite">
+
+        _
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <span>
+        NØ / ORBIT
+    </span>
+
+    <span>
+        MADE FOR NO PARTICULAR REASON
+    </span>
+
+</footer>
+
+
+<script>
+
+/* CURSOR */
+
+const cursor =
+    document.querySelector(".cursor");
+
+document.addEventListener(
+    "mousemove",
+    e => {
+
+        cursor.style.left =
+            e.clientX + "px";
+
+        cursor.style.top =
+            e.clientY + "px";
+
+    }
+);
+
+
+document.querySelectorAll(
+    "button,.card,.nav-right span"
+).forEach(el => {
+
+    el.addEventListener(
+        "mouseenter",
+        () => {
+            cursor.classList.add("active");
+        }
+    );
+
+    el.addEventListener(
+        "mouseleave",
+        () => {
+            cursor.classList.remove("active");
+        }
+    );
+
+});
+
+
+/* PARALLAX */
+
+document.addEventListener(
+    "mousemove",
+    e => {
+
+        const x =
+            e.clientX /
+            window.innerWidth - .5;
+
+        const y =
+            e.clientY /
+            window.innerHeight - .5;
+
+        const orb =
+            document.querySelector(".orb");
+
+        const rings =
+            document.querySelectorAll(".ring");
+
+        orb.style.transform =
+            `translate(${x*35}px,${y*35}px)`;
+
+        rings.forEach(
+            (ring,index) => {
+
+                ring.style.marginLeft =
+                    `${x*(20+index*10)}px`;
+
+                ring.style.marginTop =
+                    `${y*(10+index*8)}px`;
+
+            }
+        );
+
+    }
+);
+
+
+/* RANDOM MACHINE */
+
+const messages = [
+
+    "A pigeon somewhere just became suspicious of you.",
+
+    "The universe has calculated that you need a glass of water.",
+
+    "Congratulations. You have discovered absolutely nothing.",
+
+    "Your screen is currently judging your life choices.",
+
+    "A random electron has changed direction because of you.",
+
+    "Somewhere in the world, a microwave just finished.",
+
+    "You are now 0.0000001% closer to understanding the universe.",
+
+    "The machine refuses to explain itself.",
+
+    "There is a 37% chance this button is lying.",
+
+    "Reality.exe has stopped responding."
+
+];
+
+
+const button =
+    document.getElementById("generate");
+
+const result =
+    document.getElementById("result");
+
+
+button.addEventListener(
+    "click",
+    () => {
+
+        button.style.transform =
+            "scale(.95)";
+
+        setTimeout(
+            () => {
+                button.style.transform = "";
+            },
+            120
+        );
+
+        result.style.opacity = 0;
+
+        setTimeout(
+            () => {
+
+                const random =
+                    messages[
+                        Math.floor(
+                            Math.random() *
+                            messages.length
+                        )
+                    ];
+
+                result.textContent =
+                    random;
+
+                result.style.opacity = 1;
+
+            },
+            250
+        );
+
+    }
+);
+
+
+/* CARD TILT */
+
+document.querySelectorAll(
+    ".card"
+).forEach(card => {
+
+    card.addEventListener(
+        "mousemove",
+        e => {
+
+            const r =
+                card.getBoundingClientRect();
+
+            const x =
+                e.clientX - r.left;
+
+            const y =
+                e.clientY - r.top;
+
+            const rotateY =
+                (x/r.width-.5)*8;
+
+            const rotateX =
+                (y/r.height-.5)*-8;
+
+            card.style.transform =
+                `perspective(800px)
+                 rotateX(${rotateX}deg)
+                 rotateY(${rotateY}deg)
+                 translateY(-15px)`;
+
+        }
+    );
+
+
+    card.addEventListener(
+        "mouseleave",
+        () => {
+
+            card.style.transform = "";
+
+        }
+    );
+
+});
+
+
+</script>
+
+</body>
+</html>
